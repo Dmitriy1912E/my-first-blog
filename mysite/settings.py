@@ -25,7 +25,7 @@ SECRET_KEY = 'bd=l!9j!9e!93vtzi(0j!nm913w)b4dd$nep0c=43hyg6&bu!#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cywarch.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition

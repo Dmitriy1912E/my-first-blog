@@ -1,22 +1,13 @@
-<!doctype html>
-<html>
-    <head>
-        <title>venv blog</title>
-    </head>
-    <body>
-        <div>
-            <h4 class="title"><a href ='/'>venv blog</a></h4>
-        </div>
+{% extends 'blog/base.html' %}
 
-        <div>
-            <p>published: 03.11.2018 </p>
-            <h5><a href =''>My first post</a></h5>
-            <p>Я хз что написать, поэтому напишу это.</p>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-        <div>
-            <p>published: 03.11.2018</p>
-            <h5><a href=''>My second post</a>"</h5>
-            <p>Я придумал что написать, поэтому напишу уже не то,а это</p>
-        </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}

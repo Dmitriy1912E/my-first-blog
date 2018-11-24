@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from .forms import PostForm
 from django.urls import reverse
 from .forms import AuthForm
-from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth import login as django_login, logout as django_logout
 
 
 def post_permissions(view):
@@ -74,3 +74,8 @@ def login(request):
             return HttpResponseRedirect(request.GET.get('next', '/'))
 
     return render(request, 'blog/user_login.html', context={'form': form})
+
+
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect(request.GET.get('next', '/'))

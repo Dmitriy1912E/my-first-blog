@@ -9,7 +9,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'text',)
+        fields = ('title', 'text', 'img')  # попробуй сюда добавить img
 
 
 class AuthForm(forms.Form):
@@ -24,3 +24,4 @@ class AuthForm(forms.Form):
         self.cleaned_data['user'] = user
 
         return self.cleaned_data
+    

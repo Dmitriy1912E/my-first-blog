@@ -51,9 +51,9 @@ def post_edit(request, post):
         post.status = 'moderation'
         post.save()
 
-        return redirect('post_detail', pk=post.pk)
-
+        return HttpResponseRedirect(request.GET.get('next', '/'))
     return render(request, 'blog/post_edit.html', context={'form': form})
+
 
 
 @post_permissions
@@ -66,11 +66,12 @@ def post_delete(request, post):
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')  # well done, but you forgot empty line
     form = AuthForm(request.POST or None)
     if form.is_valid():
         if request.user is not None:
             django_login(request, form.cleaned_data['user'])
-
             return HttpResponseRedirect(request.GET.get('next', '/'))
 
     return render(request, 'blog/user_login.html', context={'form': form})

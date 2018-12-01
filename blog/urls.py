@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -11,4 +13,5 @@ urlpatterns = [
     url(r'^post/(?P<pk>\d+)/delete/$', views.post_delete, name='post_delete'),
     url(r'^auth/login/$', views.login, name='user_login'),
     url(r'^auth/logout/$', views.logout, name='user_logout'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

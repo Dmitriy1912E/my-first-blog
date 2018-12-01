@@ -1,19 +1,19 @@
 h1 a{
-    color: #bde572;
-    font-family: "Lobster";
+    color: #b378e5;
+    font-fantasy: 'Luminari';
 }
 body {
     padding-left: 15px;
 }
 .page-header {
-    background-color: #008725;
+    background-color: #2b2b2b;
     margin-top: 0;
-    padding: 20px 20px 20px 40px;
+    padding: 100px 20px 50px 1220px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
-    font-size: 36pt;
+    font-size: 60pt;
     text-decoration: none;
 }
 
@@ -38,16 +38,51 @@ h1, h2, h3, h4 {
 }
 
 .top-menu, .top-menu:hover, .top-menu:visited {
-    color: #ffffff;
+    color: #a9c4b2;
     float: right;
-    font-size: 26pt;
+    font-size: 35pt;
     margin-right: 20px;
+    padding: 120px 600px 20px 60px;
 }
+
 
 .post {
     margin-bottom: 70px;
 }
 
 .post h1 a, .post h1 a:visited {
-    color: #000000;
+    color: #70bcc4;
+}
+
+.logout {
+    color: #ffffff;
+    float: left;
+    font-size: 20pt;
+    margin-left: 20px;
+    padding: 5px 20px 20px 40px;
+}
+
+.login {
+    color: #ffffff;
+    float: left;
+    font-size: 20pt;
+    margin-right: 20px;
+    padding: 5px 20px 20px 40px;
+}
+
+.story{
+    color: #c4a268;
+    float: left;
+    font-size:25pt;
+    padding: 10px 10px 20px 280px
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    background: red;
 }

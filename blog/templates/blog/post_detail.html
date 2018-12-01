@@ -12,6 +12,9 @@
 	  <a href="{% url 'post_delete' pk=post.pk %}">delete</a>
     {% endif %}
         <h1>{{ post.title }}</h1>
+
         <p>{{ post.text|linebreaksbr }}</p>
+        {% load staticfiles %}
+        <img src="{% static "projects/my-first-blog/media" %}" alt="My image"/>
     </div>
 {% endblock %}

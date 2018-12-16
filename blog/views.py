@@ -44,7 +44,7 @@ def post_new(request):
 
 @post_permissions
 def post_edit(request, post):
-    form = PostForm(request.POST or None, instance=post)
+    form = PostForm(data=request.POST or None, files=request.FILES or None, instance=post)
 
     if form.is_valid():
         post = form.save(commit=False)
@@ -53,7 +53,6 @@ def post_edit(request, post):
 
         return HttpResponseRedirect(request.GET.get('next', '/'))
     return render(request, 'blog/post_edit.html', context={'form': form})
-
 
 
 @post_permissions

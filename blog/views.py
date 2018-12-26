@@ -8,6 +8,18 @@ from django.urls import reverse
 from .forms import AuthForm
 from django.contrib.auth import login as django_login, logout as django_logout
 from .forms import CommentForm
+from .models import Comment
+
+
+def comment_permissions(view):
+    def _wrap(request, post_pk, comment_pk, *args, **kwargs):
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        if comment.author != request.user and not request.user.is_superuser:
+            return HttpResponseForbidden()
+
+        return view(request, comment, post_pk, *args, **kwargs)
+
+    return _wrap
 
 
 def post_permissions(view):
@@ -96,3 +108,7 @@ def comment_new(request, post_pk):
     return render(request, 'blog/post_detail.html', context={'post_pk': post_pk})
 
 
+@comment_permissions
+def comment_delete(request, comment, post_pk):
+    comment.delete()
+    return HttpResponseRedirect(reverse('post_detail', args=(post_pk,)))

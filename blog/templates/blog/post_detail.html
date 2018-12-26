@@ -14,17 +14,16 @@
 
         <p>{{ post.text|linebreaksbr }}</p>
         <img src="{{ post.img.url }}" width="200" alt="My image"/>
-
-        <h1>Comment</h1>
+    </div>
+    <div>
+    <h1>Comment</h1>
             <form method="post" action="{% url 'comment_new' post_pk=post.pk %}">
             {% csrf_token %}
             <input type="text" name="text" placeholder="type your comment">
             <button type="submit">Save</button>
             </form>
         {% for comment in post.comments.all %}
-            <li>{{ comment.text }}</li>
+            <li>{{ comment.text }} <a href="{% url "comment_delete" post_pk=post.pk comment_pk=comment.pk%}">delete</a></li>
         {% endfor %}
-
-
     </div>
 {% endblock %}

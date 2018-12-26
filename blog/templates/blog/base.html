@@ -11,20 +11,24 @@
         <div class="page-header">
          {% if user.is_authenticated %}
              <a href="{% url 'user_logout' %}" class="logout">Logout</a>
-          {% else %}
+         {% else %}
              <a href="{% url 'user_login' %}" class="login">Login</a>
          {% endif %}
           <h1><a href="/" class="Venv">VenvD</a></h1>
             <h3><a href="{% url 'post_new' %}" class="story">Tell story about you too <span class="dot"></span></a></h3>
+
         </div>
-         <div class="delete-posts">
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
+          <div class="add-comments">
+            <div class="delete-posts">
+              <div class="content container">
+                <div class="row">
+                  <div class="col-md-8">
                     {% block content %}
                     {% endblock %}
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
     </body>
 </html>

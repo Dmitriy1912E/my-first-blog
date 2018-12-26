@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^post/new/$', views.post_new, name='post_new'),
     url(r'^post/(?P<pk>\d+)/edit/$', views.post_edit, name='post_edit'),
     url(r'^post/(?P<pk>\d+)/delete/$', views.post_delete, name='post_delete'),
+    url(r'^post/(?P<post_pk>\d+)/add/$', views.comment_new, name='comment_new'),
     url(r'^auth/login/$', views.login, name='user_login'),
     url(r'^auth/logout/$', views.logout, name='user_logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

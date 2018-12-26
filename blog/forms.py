@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 
 from .models import Post
+from .models import Comment
 
 
 class PostForm(forms.ModelForm):
@@ -24,4 +25,9 @@ class AuthForm(forms.Form):
         self.cleaned_data['user'] = user
 
         return self.cleaned_data
-    
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text', 'parent')

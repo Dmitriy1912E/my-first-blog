@@ -7,13 +7,24 @@
                 {{ post.published_date }}
             </div>
         {% endif %}
-    {% if user == post.author or user.is_superuser %}
-      <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-	  <a href="{% url 'post_delete' pk=post.pk %}">delete</a>
-    {% endif %}
+        {% if user == post.author or user.is_superuser %}
+            <a href="{% url 'post_delete' pk=post.pk %}">delete</a>
+        {% endif %}
         <h1>{{ post.title }}</h1>
 
         <p>{{ post.text|linebreaksbr }}</p>
         <img src="{{ post.img.url }}" width="200" alt="My image"/>
+
+        <h1>Comment</h1>
+            <form method="post" action="{% url 'comment_new' post_pk=post.pk %}">
+            {% csrf_token %}
+            <input type="text" name="text" placeholder="type your comment">
+            <button type="submit">Save</button>
+            </form>
+        {% for comment in post.comments.all %}
+            <li>{{ comment.text }}</li>
+        {% endfor %}
+
+
     </div>
 {% endblock %}

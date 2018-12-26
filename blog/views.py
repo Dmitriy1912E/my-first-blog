@@ -7,6 +7,7 @@ from .forms import PostForm
 from django.urls import reverse
 from .forms import AuthForm
 from django.contrib.auth import login as django_login, logout as django_logout
+from .forms import CommentForm
 
 
 def post_permissions(view):
@@ -26,12 +27,13 @@ def post_list(request):
 
 
 def post_detail(request, pk):
+
     post = get_object_or_404(Post, pk=pk, status='active')
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
 def post_new(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, files=request.FILES or None)
 
     if form.is_valid():
         post = form.save(commit=False)
@@ -79,3 +81,18 @@ def login(request):
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect(request.GET.get('next', '/'))
+
+
+def comment_new(request, post_pk):
+    form = CommentForm(request.POST or None)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post_id = post_pk
+        comment.save()
+        return redirect('post_detail', pk=post_pk)
+
+    return render(request, 'blog/post_detail.html', context={'post_pk': post_pk})
+
+

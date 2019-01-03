@@ -9,6 +9,11 @@ from .forms import AuthForm
 from django.contrib.auth import login as django_login, logout as django_logout
 from .forms import CommentForm
 from .models import Comment
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib import admin
 
 
 def comment_permissions(view):
@@ -112,3 +117,9 @@ def comment_new(request, post_pk):
 def comment_delete(request, comment, post_pk):
     comment.delete()
     return HttpResponseRedirect(reverse('post_detail', args=(post_pk,)))
+
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('user_login')
+    template_name = 'blog/signup.html'

@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <div class="post">
+    <div class="post" xmlns="http://www.w3.org/1999/html">
         {% if post.published_date %}
             <div class="date">
                 {{ post.published_date }}
@@ -24,7 +24,7 @@
             <button type="submit">Save</button>
         </form>
         {% for comment in post.comments.all %}
-            <li>{{ comment.text }} <a href="{% url "comment_delete" post_pk=post.pk comment_pk=comment.pk %}">delete</a>
+            <li class="level-{{ comment.level }}">{{ comment.text }}<span class="children"></span> <a href="{% url "comment_delete" post_pk=post.pk comment_pk=comment.pk %}">delete</a>
             <span class="answer" onclick="
                 document.getElementById('parent').value = {{ comment.pk }};
             ">answer</span></li>

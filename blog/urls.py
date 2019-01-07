@@ -2,11 +2,6 @@ from django.conf.urls import url
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import include, url
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic.base import TemplateView
-
 
 urlpatterns = [
 
@@ -17,10 +12,10 @@ urlpatterns = [
     url(r'^post/(?P<pk>\d+)/delete/$', views.post_delete, name='post_delete'),
     url(r'^post/(?P<post_pk>\d+)/add/$', views.comment_new, name='comment_new'),
     url(r'^post/(?P<post_pk>\d+)/(?P<comment_pk>\d+)/delete/$', views.comment_delete, name='comment_delete'),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='/'), name='/'),
+    url(r'^$', views.home, name='home'),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^activate/(?P<uidb64>[\w\-]+)/(?P<token>[\w]{1,13}-[\w]{1,20})/$',
+        views.activate, name='activate'),
     url(r'^auth/login/$', views.login, name='user_login'),
     url(r'^auth/logout/$', views.logout, name='user_logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

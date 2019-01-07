@@ -18,4 +18,5 @@ urlpatterns = [
         views.activate, name='activate'),
     url(r'^auth/login/$', views.login, name='user_login'),
     url(r'^auth/logout/$', views.logout, name='user_logout'),
+    url(r'^profile/(?P<username>\w+)/$', views.profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

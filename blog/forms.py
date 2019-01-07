@@ -16,6 +16,8 @@ class PostForm(forms.ModelForm):
 
 
 class AuthForm(forms.Form):
+    first_name = forms.SlugField()
+    last_name = forms.SlugField()
     username = forms.SlugField()
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -40,4 +42,4 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')

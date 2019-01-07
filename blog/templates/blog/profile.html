@@ -1,12 +1,18 @@
-{% extends 'blog/base.html'%}
+{% extends 'blog/base.html' %}
+
 {% block content %}
-    {% for post in posts %}
+    <div>
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    </div>
+
+        {% for post in profile_user.posts.all %}
+
         <div class="post">
             <div class="date">
                 {{ post.published_date }}
             </div>
             <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p> <a href="{% url 'profile'  username=post.author.username%}">{{ post.author.username }}</a>
         </div>
-    {% endfor %}
+        <p>{{ post.text|linebreaksbr }}</p>
+        {% endfor %}
 {% endblock %}

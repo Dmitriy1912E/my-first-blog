@@ -10,7 +10,7 @@ class Post(models.Model):
         ("active", "active"),
     )
 
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)

@@ -178,5 +178,6 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
-
-
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'blog/profile.html', {'profile_user': user})

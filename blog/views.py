@@ -21,7 +21,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-
+from .forms import ProfileForm
 
 def home(request):
     return render(request, 'blog/base.html')
@@ -41,7 +41,7 @@ def comment_permissions(view):
 def post_permissions(view):
     def _wrap(request, pk, *args, **kwargs):
         post = get_object_or_404(Post, pk=pk)
-        if post.author != request.user and not request.user.is_superuser:
+        if post.author != request.user or not request.user.is_superuser:
             return HttpResponseForbidden()
 
         return view(request, post, *args, **kwargs)
@@ -181,3 +181,17 @@ def activate(request, uidb64, token):
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     return render(request, 'blog/profile.html', {'profile_user': user})
+
+
+def profile_edit(request, username, profile):
+    user = get_object_or_404(User, username=username)
+    if user != profile.user and not request.user_is_superuser:
+        return HttpResponseForbidden
+    form = ProfileForm(data=request.GET or None, files=request.FILES or None, instance=profile)
+
+    if form.is_valid():
+        profile = form.save(commit=False)
+        profile.save()
+
+        return HttpResponseRedirect(request.GET.get('next', '/'))
+    return render(request, 'blog/profile_edit.html', context={'form': form})

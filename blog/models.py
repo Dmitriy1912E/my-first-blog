@@ -32,3 +32,5 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.text
+
+

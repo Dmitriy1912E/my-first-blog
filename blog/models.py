@@ -4,6 +4,20 @@ from django.db.models import DateTimeField
 from django.conf import settings
 
 
+class Category(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+    title = models.CharField(max_length=255, verbose_name="Title")
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
+
 class Post(models.Model):
     statuses = (
         ("moderation", "moderation"),
@@ -11,6 +25,7 @@ class Post(models.Model):
     )
 
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='posts')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
@@ -32,5 +47,6 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.text
+
 
 

@@ -3,7 +3,7 @@
 {% block content %}
     <div>
      {% if user == profile_user or not request.user_is_superuser %}
-        <a class="btn btn-default" href="{% url 'profile_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-default" href="{% url 'profile_edit'   %}"><span class="glyphicon glyphicon-pencil"></span></a>
     {% endif %}
     <h2>{{ profile_user.first_name }} {{ profile_user.last_name  }}</h2>
     <h3>{{ profile_user.about }}</h3>

@@ -5,7 +5,15 @@
     <title>Profile</title>
 </head>
 <body>
+    {% extends 'blog/base.html' %}
 
+    {% block content %}
+        <h1>Profile settings</h1>
+        <form method="POST" enctype="multipart/form-data" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    {% endblock %}
 
 </body>
 </html>

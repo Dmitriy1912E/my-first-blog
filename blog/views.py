@@ -22,9 +22,18 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .forms import ProfileForm
+from .models import Category
+
 
 def home(request):
     return render(request, 'blog/base.html')
+
+
+def profile_permissions(view):
+    def _wrap(request, profile_user, *args, **kwargs):
+        profile = get_object_or_404(User, user=profile_user)
+
+        return view(request, profile, profile_user, *args, **kwargs)
 
 
 def comment_permissions(view):
@@ -47,6 +56,17 @@ def post_permissions(view):
         return view(request, post, *args, **kwargs)
 
     return _wrap
+
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'blog/base.html', {'categories': categories})
+
+
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+
+    return render(request, 'blog/category_detail.html', {'category': category})
 
 
 def post_list(request):
@@ -183,15 +203,10 @@ def profile(request, username):
     return render(request, 'blog/profile.html', {'profile_user': user})
 
 
-def profile_edit(request, username, profile):
-    user = get_object_or_404(User, username=username)
-    if user != profile.user and not request.user_is_superuser:
-        return HttpResponseForbidden
-    form = ProfileForm(data=request.GET or None, files=request.FILES or None, instance=profile)
-
+def profile_edit(request):
+    form = ProfileForm(data=request.POST or None, files=request.FILES or None, instance=request.user)
     if form.is_valid():
-        profile = form.save(commit=False)
-        profile.save()
+        form.save()
 
         return HttpResponseRedirect(request.GET.get('next', '/'))
     return render(request, 'blog/profile_edit.html', context={'form': form})

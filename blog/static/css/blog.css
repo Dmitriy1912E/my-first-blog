@@ -132,3 +132,8 @@ h1, h2, h3, h4 {
 .level-10{
     margin-left: 100px;
 }
+
+.post-form textarea, . input {
+    width: 100%;
+    color: #6DDCBD;
+}

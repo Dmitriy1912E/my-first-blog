@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+    <h1>{{ categories }}</h1>
     <div class="post" xmlns="http://www.w3.org/1999/html">
         {% if post.published_date %}
             <div class="date">

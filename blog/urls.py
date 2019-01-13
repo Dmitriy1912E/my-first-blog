@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
+    url(r'^category$', views.category_list, name='category_list'),
+    url(r'^category/(?P<pk>\d+)/$', views.category_detail, name='category_detail'),
     url(r'^$', views.post_list, name='post_list'),
     url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
     url(r'^post/new/$', views.post_new, name='post_new'),
@@ -18,5 +20,6 @@ urlpatterns = [
         views.activate, name='activate'),
     url(r'^auth/login/$', views.login, name='user_login'),
     url(r'^auth/logout/$', views.logout, name='user_logout'),
+    url(r'^profile/edit/$', views.profile_edit, name='profile_edit'),
     url(r'^profile/(?P<username>\w+)/$', views.profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

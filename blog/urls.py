@@ -5,8 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-    url(r'^category$', views.category_list, name='category_list'),
-    url(r'^category/(?P<pk>\d+)/$', views.category_detail, name='category_detail'),
+    url(r'^category/(?P<category>\d+)/$', views.category_detail, name='category_detail'),
     url(r'^$', views.post_list, name='post_list'),
     url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
     url(r'^post/new/$', views.post_new, name='post_new'),
@@ -16,7 +15,7 @@ urlpatterns = [
     url(r'^post/(?P<post_pk>\d+)/(?P<comment_pk>\d+)/delete/$', views.comment_delete, name='comment_delete'),
     url(r'^$', views.home, name='home'),
     url(r'^signup/$', views.signup, name='signup'),
-    url(r'^activate/(?P<uidb64>[\w\-]+)/(?P<token>[\w]{1,13}-[\w]{1,20})/$',
+    url(r'^activate/(?P<uidb64>[\w\-]+)/(?P<token>\w{1,13}-\w{1,20})/$',
         views.activate, name='activate'),
     url(r'^auth/login/$', views.login, name='user_login'),
     url(r'^auth/logout/$', views.logout, name='user_logout'),

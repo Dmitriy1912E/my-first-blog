@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load blog %}
 
 {% block content %}
     <h1>{{ categories }}</h1>
@@ -29,7 +30,7 @@
             <button type="submit">Save</button>
         </form>
         {% for comment in post.comments.all %}
-            <li class="level-{{ comment.level }}">{{ comment.text }}<span class="children"></span> <a href="{% url "comment_delete" post_pk=post.pk comment_pk=comment.pk %}">delete</a>
+            <li style="margin-left: {{ comment.level|multiply:40 }}px">{{ comment.text }}<span class="children"></span> <a href="{% url "comment_delete" post_pk=post.pk comment_pk=comment.pk %}">delete</a>
             <span class="answer" onclick="
                 document.getElementById('parent').value = {{ comment.pk }};
             ">answer</span></li>

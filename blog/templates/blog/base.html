@@ -20,9 +20,9 @@
             <h3><a href="{% url 'post_new' %}" class="story">Tell story about you too <span class="dot"></span></a></h3>
 
 
-          <div class="categories">
-            {% for title in categories %}
-                <a href="{% url 'category_detail' category=posts.category %}" class="categories"> {{ title.title }}</a>
+          <div class="left-list">
+            {% for t in categories %}
+           <a href="{% url 'category_detail' pk=t.pk%}">{{ t.title }}</a>
             {% endfor %}
           </div>
         </div>

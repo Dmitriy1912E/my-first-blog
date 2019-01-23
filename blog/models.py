@@ -4,6 +4,20 @@ from django.db.models import DateTimeField
 from django.conf import settings
 
 
+class Tag(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+    slug = models.CharField(max_length=30, verbose_name="Tags")
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
+        ordering = ['slug']
+
+    def __str__(self):
+        return self.slug
+
+
 class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
@@ -26,6 +40,7 @@ class Post(models.Model):
 
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='posts')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='posts')
+    slug = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
@@ -47,3 +62,5 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.text
+
+

@@ -2,14 +2,18 @@
 {% load blog %}
 
 {% block content %}
-    <h1>{{ categories }}</h1>
     <div class="post" xmlns="http://www.w3.org/1999/html">
         {% if post.published_date %}
             <div class="date">
                 {{ post.published_date }}
             </div>
         {% endif %}
+
+        {% for t in categories %}
+        <a href="{% url 'category_detail' pk=t.pk %}">{{ post.category }}</a>
+        {% endfor %}
     {% if user.is_authenticated %}
+
         <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
     {% endif %}
         {% if user == post.author or user.is_superuser %}
@@ -18,8 +22,11 @@
         <h1>{{ post.title }}</h1>
 
         <p>{{ post.text|linebreaksbr }}</p>
+        {% if post.img_is_Not_none %}
         <img src="{{ post.img.url }}" width="200" alt="My image"/>
+        {% endif %}
         <a href="{% url 'profile'  username=post.author.username%}">{{ post.author.username }}</a>
+        {{ post.slug }}
     </div>
     <div>
         <h1>Comment</h1>

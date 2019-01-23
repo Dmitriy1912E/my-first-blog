@@ -97,3 +97,10 @@ h1, h2, h3, h4 {
     width: 100%;
     color: #6DDCBD;
 }
+
+.categories{
+    color: #ffffff;
+    width: 50px;
+    padding: 50px -600px 70px 40px;
+}
+

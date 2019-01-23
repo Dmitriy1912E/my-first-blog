@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .forms import ProfileForm
 from .models import Category
+from .models import Tag
 
 
 def home(request):
@@ -58,14 +59,12 @@ def post_permissions(view):
     return _wrap
 
 
-def category_list(request):
-    categories = Category.objects.all()
-    return render(request, 'blog/base.html', {'categories': categories})
+def tag(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
 
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
-
     return render(request, 'blog/category_detail.html', {'category': category})
 
 
@@ -87,7 +86,7 @@ def post_new(request):
         post = form.save(commit=False)
         post.author = request.user
         post.save()
-        return redirect('post_detail', pk=post.pk)
+        return redirect('/', pk=post.pk)
 
     return render(request, 'blog/post_edit.html', {'form': form})
 
